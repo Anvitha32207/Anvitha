@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class FakeProductGenerator {
+
+    private static final String[] PRODUCT_NAMES = {"Smartphone", "Laptop", "Headphones", "Smartwatch", "Tablet", "Camera"};
+    private static final String[] CATEGORIES = {"Electronics", "Home Appliances", "Fashion", "Toys", "Books", "Beauty"};
+    private static final String[] DESCRIPTIONS = {
+        "High quality and durable",
+        "Best value for the price",
+        "Top choice for customers",
+        "Newly released model",
+        "Compact and portable",
+        "Great performance and design"
+    };
+
+    private static final Random RANDOM = new Random();
+
+    static class Product {
+        String name;
+        String category;
+        String description;
+        double price;
+
+        public Product(String name, String category, String description, double price) {
+            this.name = name;
+            this.category = category;
+            this.description = description;
+            this.price = price;
+        }
+
+        public String toString() {
+            return "Product{" +
+                    "name='" + name + '\'' +
+                    ", category='" + category + '\'' +
+                    ", description='" + description + '\'' +
+                    ", price=" + price +
+                    '}';
+        }
+    }
+    public static List<Product> generateFakeProducts(int count) {
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            String name = PRODUCT_NAMES[RANDOM.nextInt(PRODUCT_NAMES.length)];
+            String category = CATEGORIES[RANDOM.nextInt(CATEGORIES.length)];
+            String description = DESCRIPTIONS[RANDOM.nextInt(DESCRIPTIONS.length)];
+            double price = 10 + (5000 - 10) * RANDOM.nextDouble();
+
+            products.add(new Product(name, category, description, Math.round(price * 100.0) / 100.0)); 
+        }
+        return products;
+    }
+
+ 
+    public static void main(String[] args) {
+        List<Product> fakeProducts = generateFakeProducts(5); 
+        fakeProducts.forEach(System.out::println);
+    }
+}
